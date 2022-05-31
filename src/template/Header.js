@@ -1,4 +1,3 @@
-import { Dropdown } from "bootstrap";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { FacebookLogo, Friend, Home } from "./icons";
 

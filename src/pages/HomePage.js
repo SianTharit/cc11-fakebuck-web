@@ -1,4 +1,6 @@
+import PostContainer from "../components/post/PostContainer";
+
 function HomePage() {
-    return <div>HomePage</div>;
+    return <PostContainer />;
 }
 export default HomePage;

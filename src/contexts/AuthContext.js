@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../config/axios";
 import {
@@ -54,6 +54,12 @@ function AuthContextProvider({ children }) {
         </AuthContext.Provider>
     );
 }
+
+const useAuth = () => {
+    const ctx = useContext(AuthContext);
+    return ctx;
+};
+
 export default AuthContextProvider;
 
-export { AuthContext };
+export { AuthContext, useAuth };

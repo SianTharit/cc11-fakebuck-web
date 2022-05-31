@@ -15,9 +15,10 @@ function Router() {
         <Routes>
             {user ? (
                 <>
+                    {/*----- Nested Route #1 -------*/}
                     <Route path="/" element={<AuthLayout />}>
-                        {/*----- Relative Path มันจะเทียบกับพาร์ทด้านหน้า ----------*/}
                         <Route path="" element={<HomePage />} />
+                        {/*----- Nested Route #2 -------*/}
                         <Route path="friend" element={<Sidebar />}>
                             <Route path="" element={<FriendPage />} />
                             <Route path="request" element={<FriendPage />} />
@@ -33,7 +34,7 @@ function Router() {
                     <Route path="*" element={<Navigate to="/login" />} />
                 </>
             )}
-            {/*----- Nested Route -------*/}
+            {/*----- Relative Path มันจะเทียบกับพาร์ทด้านหน้า ----------*/}
         </Routes>
     );
 }

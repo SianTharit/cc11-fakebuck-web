@@ -1,4 +1,4 @@
-import { CREATE_COMMENT, INIT } from "../actions/postAction";
+import { CREATE_COMMENT, DELETE_COMMENT, INIT } from "../actions/postAction";
 
 export const initial = {
     posts: [],
@@ -8,23 +8,55 @@ export const initial = {
 export default function postReducer(state, action) {
     switch (action.type) {
         // dispatch({ type: 'init', action: { payload: []} })
+
         case INIT: {
-            return { ...state, posts: action.payload };
+            const commentMapping = action.payload.reduce((acc, el) => {
+                acc[el.id] = el.Comments;
+                return acc;
+            }, {});
+            return { ...state, posts: action.payload, commentMapping };
         }
 
         // payload { postId, user, comment }
         case CREATE_COMMENT: {
-            const idx = state.posts.findIndex(
-                (el) => el.id === action.payload.postId
-            );
-            const newComments = [...state.posts[idx].Comments];
+            // const idx = state.posts.findIndex(
+            //     (el) => el.id === action.payload.postId
+            // );
+            // const newComments = [...state.posts[idx].Comments];
+            // newComments.push({
+            //     ...action.payload.comment,
+            //     User: action.payload.user,
+            // });
+            // const newPosts = [...state.posts];
+            // newPosts[idx] = { ...newPosts[idx], Comments: newComments };
+            // return { ...state, posts: newPosts };
+
+            const newComments = [
+                ...state.commentMapping[action.payload.postId],
+            ];
             newComments.push({
                 ...action.payload.comment,
                 User: action.payload.user,
             });
-            const newPosts = [...state.posts];
-            newPosts[idx] = { ...newPosts[idx], Comments: newComments };
-            return { ...state, posts: newPosts };
+            return {
+                ...state,
+                commentMapping: {
+                    ...state.commentMapping,
+                    [action.payload.postId]: newComments,
+                },
+            };
+        }
+        case DELETE_COMMENT: {
+            const newComments = [
+                ...state.commentMapping[action.payload.postId],
+            ].filter((el) => el.id !== action.payload.commentId);
+            return {
+                ...state,
+                commentMapping: {
+                    ...state.commentMapping,
+                    [action.payload.postId]: newComments,
+                },
+            };
         }
         default:
             return state;

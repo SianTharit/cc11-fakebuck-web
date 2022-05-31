@@ -4,14 +4,14 @@ import UserIcon from "../../../../common/UserIcon";
 
 function PostHeader({ post }) {
     const {
-        User: { id, firstName, lastName, ProfilePic },
+        User: { id, firstName, lastName, profilePic },
         updatedAt,
     } = post;
     console.log(post);
     return (
         <div className="d-flex align-items-center space-x-2">
             <Link to={"/profile/" + id}>
-                <UserIcon src={ProfilePic} size="40" />
+                <UserIcon src={profilePic} size="40" />
             </Link>
             <div className="d-flex flex-column flex-fill">
                 <Link
